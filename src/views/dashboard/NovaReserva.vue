@@ -49,6 +49,10 @@
         </div>
       </div>
     </vee-form>
+
+    <div class="text-center">
+      <router-link to="/reserva/lista">Lista Reserva</router-link>
+    </div>
 </template>
 
 <script>

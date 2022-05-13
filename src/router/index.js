@@ -5,6 +5,7 @@ import Template from './../views/dashboard/Template.vue';
 import ListarReservas from './../views/dashboard/ListarReservas.vue';
 import NovaReserva from './../views/dashboard/NovaReserva.vue';
 import AuthView from './../views/dashboard/AuthView.vue';
+import UserView from './../views/dashboard/UserView.vue';
 
 const reserva = [
     
@@ -13,11 +14,22 @@ const reserva = [
 ];
 
 const routes = [
+    { path: '/user', component: UserView,
+        beforeEnter: (to) => {
+            const auth = localStorage.getItem('token');
+            if(auth) {
+                return true;
+            }
+            return to = '/'
+        }
+
+    },
+
     { path: '/', component: Home },
     { path: '/auth', 
         component: AuthView, 
         beforeEnter: (to, from) => {
-            const auth = localStorage.getItem('autenticado');
+            const auth = localStorage.getItem('token');
             if(auth) {
                 return to = '/'
             }
@@ -28,7 +40,7 @@ const routes = [
         children: reserva, 
         redirect: '/reserva/lista',
         beforeEnter: (to, from) =>{
-            const auth = localStorage.getItem('autenticado');
+            const auth = localStorage.getItem('token');
             if (auth) {
                 return true;
             }
